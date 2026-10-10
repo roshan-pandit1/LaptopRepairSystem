@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.venv/
+__pycache__/
+.pytest_cache/
+data/local/
+*.pyc
+.env
+playwright-report/
+test-results/
+*.tsbuildinfo
+faultline-report.json

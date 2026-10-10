@@ -1,0 +1,203 @@
+{
+  "$defs": {
+    "Device": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "manufacturer": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Manufacturer",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "os": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Os",
+          "type": "string"
+        },
+        "demo": {
+          "default": false,
+          "title": "Demo",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "manufacturer",
+        "model",
+        "os"
+      ],
+      "title": "Device",
+      "type": "object"
+    },
+    "Measurement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "pattern": "^[a-z0-9_]{1,80}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "component": {
+          "enum": [
+            "battery",
+            "storage",
+            "cooling",
+            "ram",
+            "system"
+          ],
+          "title": "Component",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maxLength": 50,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unknown",
+            "unsupported",
+            "permission_denied",
+            "collection_failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "limitation": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Limitation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "component",
+        "timestamp",
+        "source",
+        "status",
+        "limitation"
+      ],
+      "title": "Measurement",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "id": {
+      "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+      "title": "Id",
+      "type": "string"
+    },
+    "device": {
+      "$ref": "#/$defs/Device"
+    },
+    "started_at": {
+      "format": "date-time",
+      "title": "Started At",
+      "type": "string"
+    },
+    "completed_at": {
+      "format": "date-time",
+      "title": "Completed At",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "completed",
+        "cancelled",
+        "failed"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "categories": {
+      "items": {
+        "enum": [
+          "battery",
+          "storage",
+          "cooling",
+          "ram",
+          "system"
+        ],
+        "type": "string"
+      },
+      "maxItems": 5,
+      "minItems": 1,
+      "title": "Categories",
+      "type": "array"
+    },
+    "measurements": {
+      "items": {
+        "$ref": "#/$defs/Measurement"
+      },
+      "maxItems": 2000,
+      "title": "Measurements",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "device",
+    "started_at",
+    "completed_at",
+    "status",
+    "categories",
+    "measurements"
+  ],
+  "title": "Report",
+  "type": "object"
+}

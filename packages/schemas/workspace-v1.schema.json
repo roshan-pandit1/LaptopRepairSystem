@@ -1,0 +1,628 @@
+{
+  "$defs": {
+    "Device": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "manufacturer": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Manufacturer",
+          "type": "string"
+        },
+        "model": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Model",
+          "type": "string"
+        },
+        "os": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Os",
+          "type": "string"
+        },
+        "demo": {
+          "default": false,
+          "title": "Demo",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "manufacturer",
+        "model",
+        "os"
+      ],
+      "title": "Device",
+      "type": "object"
+    },
+    "ExportAdvisory": {
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "title": "Device Id",
+          "type": "string"
+        },
+        "title": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "maxLength": 2000,
+          "title": "Url",
+          "type": "string"
+        },
+        "applicability": {
+          "maxLength": 3000,
+          "minLength": 1,
+          "title": "Applicability",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "manufacturer": {
+          "title": "Manufacturer",
+          "type": "string"
+        },
+        "model": {
+          "title": "Model",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Published At"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Retrieved At"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "status": {
+          "const": "unverified official-domain bookmark",
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "device_id",
+        "title",
+        "url",
+        "applicability",
+        "id",
+        "manufacturer",
+        "model",
+        "published_at",
+        "retrieved_at",
+        "created_at",
+        "status"
+      ],
+      "title": "ExportAdvisory",
+      "type": "object"
+    },
+    "ExportCase": {
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "maxLength": 300,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        },
+        "brand": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Brand"
+        },
+        "model": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Model"
+        },
+        "category": {
+          "default": "Laptop",
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Category",
+          "type": "string"
+        },
+        "symptom": {
+          "maxLength": 4000,
+          "minLength": 1,
+          "title": "Symptom",
+          "type": "string"
+        },
+        "fault_group": {
+          "maxLength": 100,
+          "minLength": 1,
+          "title": "Fault Group",
+          "type": "string"
+        },
+        "record_type": {
+          "enum": [
+            "technician",
+            "public aggregate",
+            "fictional technician-reviewed"
+          ],
+          "title": "Record Type",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[A-Za-z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "state": {
+          "enum": [
+            "reported",
+            "investigation",
+            "diagnosed",
+            "repaired",
+            "post_tested",
+            "approved",
+            "handover",
+            "follow_up"
+          ],
+          "title": "State",
+          "type": "string"
+        },
+        "outcome": {
+          "enum": [
+            "outcome unknown",
+            "working at handover",
+            "confirmed working at follow-up",
+            "repeat failure reported"
+          ],
+          "title": "Outcome",
+          "type": "string"
+        },
+        "review_status": {
+          "enum": [
+            "pending",
+            "approved",
+            "rejected"
+          ],
+          "title": "Review Status",
+          "type": "string"
+        },
+        "follow_up": {
+          "enum": [
+            "pending",
+            "unknown",
+            "confirmed working",
+            "repeat failure"
+          ],
+          "title": "Follow Up",
+          "type": "string"
+        },
+        "parent_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Parent Id"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "events": {
+          "items": {
+            "$ref": "#/$defs/ExportEvent"
+          },
+          "maxItems": 10000,
+          "title": "Events",
+          "type": "array"
+        }
+      },
+      "required": [
+        "title",
+        "symptom",
+        "fault_group",
+        "record_type",
+        "id",
+        "state",
+        "outcome",
+        "review_status",
+        "follow_up",
+        "parent_id",
+        "created_at",
+        "events"
+      ],
+      "title": "ExportCase",
+      "type": "object"
+    },
+    "ExportEvent": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "integer"
+        },
+        "kind": {
+          "maxLength": 100,
+          "title": "Kind",
+          "type": "string"
+        },
+        "notes": {
+          "maxLength": 10000,
+          "title": "Notes",
+          "type": "string"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "data": {
+          "title": "Data",
+          "type": "object"
+        },
+        "case_id": {
+          "title": "Case Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "notes",
+        "timestamp",
+        "data",
+        "case_id"
+      ],
+      "title": "ExportEvent",
+      "type": "object"
+    },
+    "Measurement": {
+      "additionalProperties": false,
+      "properties": {
+        "key": {
+          "pattern": "^[a-z0-9_]{1,80}$",
+          "title": "Key",
+          "type": "string"
+        },
+        "component": {
+          "enum": [
+            "battery",
+            "storage",
+            "cooling",
+            "ram",
+            "system"
+          ],
+          "title": "Component",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        },
+        "unit": {
+          "anyOf": [
+            {
+              "maxLength": 50,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unit"
+        },
+        "timestamp": {
+          "format": "date-time",
+          "title": "Timestamp",
+          "type": "string"
+        },
+        "source": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "available",
+            "unknown",
+            "unsupported",
+            "permission_denied",
+            "collection_failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "limitation": {
+          "maxLength": 2000,
+          "minLength": 1,
+          "title": "Limitation",
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "component",
+        "timestamp",
+        "source",
+        "status",
+        "limitation"
+      ],
+      "title": "Measurement",
+      "type": "object"
+    },
+    "Report": {
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": {
+          "const": "1.0",
+          "title": "Schema Version",
+          "type": "string"
+        },
+        "id": {
+          "pattern": "^[a-zA-Z0-9_-]{1,80}$",
+          "title": "Id",
+          "type": "string"
+        },
+        "device": {
+          "$ref": "#/$defs/Device"
+        },
+        "started_at": {
+          "format": "date-time",
+          "title": "Started At",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "completed",
+            "cancelled",
+            "failed"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "categories": {
+          "items": {
+            "enum": [
+              "battery",
+              "storage",
+              "cooling",
+              "ram",
+              "system"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "minItems": 1,
+          "title": "Categories",
+          "type": "array"
+        },
+        "measurements": {
+          "items": {
+            "$ref": "#/$defs/Measurement"
+          },
+          "maxItems": 2000,
+          "title": "Measurements",
+          "type": "array"
+        }
+      },
+      "required": [
+        "schema_version",
+        "id",
+        "device",
+        "started_at",
+        "completed_at",
+        "status",
+        "categories",
+        "measurements"
+      ],
+      "title": "Report",
+      "type": "object"
+    },
+    "RuleSettings": {
+      "additionalProperties": false,
+      "properties": {
+        "low_space_percent": {
+          "default": 10,
+          "exclusiveMinimum": 0.0,
+          "maximum": 50.0,
+          "title": "Low Space Percent",
+          "type": "number"
+        },
+        "critical_space_percent": {
+          "default": 3,
+          "maximum": 50.0,
+          "minimum": 0.0,
+          "title": "Critical Space Percent",
+          "type": "number"
+        },
+        "battery_drop_points": {
+          "default": 8,
+          "exclusiveMinimum": 0.0,
+          "maximum": 100.0,
+          "title": "Battery Drop Points",
+          "type": "number"
+        },
+        "event_count": {
+          "default": 5,
+          "maximum": 10000,
+          "minimum": 1,
+          "title": "Event Count",
+          "type": "integer"
+        }
+      },
+      "title": "RuleSettings",
+      "type": "object"
+    },
+    "Settings": {
+      "additionalProperties": false,
+      "properties": {
+        "permissions": {
+          "items": {
+            "enum": [
+              "battery",
+              "storage",
+              "cooling",
+              "ram",
+              "system"
+            ],
+            "type": "string"
+          },
+          "maxItems": 5,
+          "title": "Permissions",
+          "type": "array"
+        },
+        "retention_days": {
+          "default": 365,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Retention Days",
+          "type": "integer"
+        },
+        "scheduled_monitoring": {
+          "default": false,
+          "title": "Scheduled Monitoring",
+          "type": "boolean"
+        },
+        "rules": {
+          "$ref": "#/$defs/RuleSettings"
+        },
+        "ai_enabled": {
+          "const": false,
+          "default": false,
+          "title": "Ai Enabled",
+          "type": "boolean"
+        }
+      },
+      "title": "Settings",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "1.0",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "kind": {
+      "const": "faultline-workspace",
+      "title": "Kind",
+      "type": "string"
+    },
+    "exported_at": {
+      "format": "date-time",
+      "title": "Exported At",
+      "type": "string"
+    },
+    "reports": {
+      "items": {
+        "$ref": "#/$defs/Report"
+      },
+      "maxItems": 10000,
+      "title": "Reports",
+      "type": "array"
+    },
+    "cases": {
+      "items": {
+        "$ref": "#/$defs/ExportCase"
+      },
+      "maxItems": 10000,
+      "title": "Cases",
+      "type": "array"
+    },
+    "advisories": {
+      "items": {
+        "$ref": "#/$defs/ExportAdvisory"
+      },
+      "maxItems": 10000,
+      "title": "Advisories",
+      "type": "array"
+    },
+    "settings": {
+      "$ref": "#/$defs/Settings"
+    },
+    "limitations": {
+      "title": "Limitations",
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "kind",
+    "exported_at",
+    "reports",
+    "cases",
+    "settings",
+    "limitations"
+  ],
+  "title": "Workspace",
+  "type": "object"
+}

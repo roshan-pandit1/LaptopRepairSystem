@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS schema_migrations(version INTEGER PRIMARY KEY);
+CREATE TABLE devices(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE scans(id TEXT PRIMARY KEY, device_id TEXT NOT NULL REFERENCES devices(id), started_at TEXT NOT NULL, completed_at TEXT, status TEXT NOT NULL, demo INTEGER NOT NULL, categories TEXT NOT NULL, progress TEXT NOT NULL DEFAULT '[]', report TEXT);
+CREATE TABLE measurements(id INTEGER PRIMARY KEY AUTOINCREMENT, scan_id TEXT NOT NULL REFERENCES scans(id) ON DELETE CASCADE, device_id TEXT NOT NULL REFERENCES devices(id), key TEXT NOT NULL, component TEXT NOT NULL, timestamp TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE INDEX measurements_history ON measurements(device_id,key,timestamp);
+CREATE TABLE warnings(id TEXT PRIMARY KEY, device_id TEXT NOT NULL REFERENCES devices(id), payload TEXT NOT NULL);
+CREATE TABLE cases(id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE case_events(id INTEGER PRIMARY KEY AUTOINCREMENT, case_id TEXT NOT NULL REFERENCES cases(id), kind TEXT NOT NULL, notes TEXT NOT NULL, timestamp TEXT NOT NULL, data TEXT NOT NULL);
+CREATE VIRTUAL TABLE case_search USING fts5(case_id UNINDEXED, content, tokenize='unicode61');
+CREATE TABLE attachments(id TEXT PRIMARY KEY, case_id TEXT NOT NULL REFERENCES cases(id), filename TEXT NOT NULL, storage_name TEXT NOT NULL, size INTEGER NOT NULL);
+CREATE TABLE advisories(id TEXT PRIMARY KEY, device_id TEXT NOT NULL REFERENCES devices(id), payload TEXT NOT NULL);
+CREATE TABLE settings(id INTEGER PRIMARY KEY CHECK(id=1), payload TEXT NOT NULL);
+CREATE TABLE audit(id INTEGER PRIMARY KEY AUTOINCREMENT, action TEXT NOT NULL, entity_id TEXT NOT NULL, timestamp TEXT NOT NULL);
+INSERT INTO schema_migrations VALUES(1);

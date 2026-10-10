@@ -1,0 +1,8 @@
+# Three-minute placement demo
+
+1. **Frame the problem (20s).** “FAULTLINE is a local evidence workbench for owners and repair technicians. This banner says Demo data; these are fictional measurements. Software signals support investigation, not guaranteed health or a failure date.”
+2. **Explore the device (35s).** Select Battery on the schematic. Expand a reading to show source, timestamp, unit and limitation. Show the declining capacity chart and accessible data table. Open the battery finding and its linked measurements.
+3. **Demonstrate honest scanning (30s).** Run diagnostic scan → choose categories → warning scenario. Point out “simulated scan.” After completion, switch to History. Then run unavailable-data scenario and show CPU temperature/other sensors as unsupported, never healthy. Run warning again to restore the example.
+4. **Follow the reasoning (40s).** Open Repair Library. Search `battery`, filter brand `Lenovo`. Open the case file and show suspected versus confirmed causes, tests, repair, review and follow-up. Compare two cases and explain model/test differences. Open FL-006 and its linked repeat attempt; previous repair evidence remains intact.
+5. **Live repair entry (35s).** Create a technician case. Add a failed test, note its event number, add suspected cause, confirm with that supporting ID. Record repair → passed post-test → named reviewer approval → handover → working follow-up. Explain that a failed post-test returns to investigation.
+6. **Close on trust (20s).** Advisories has an honest no-live-retrieval state. Settings shows opt-in monitoring, export/import and explicit delete confirmation. Press Ctrl/Cmd+K. Describe the paired read-only Windows collector and the separately documented real-hardware smoke test.
